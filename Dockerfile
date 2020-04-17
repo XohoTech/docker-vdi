@@ -1,4 +1,4 @@
-FROM ubuntu:18.04 as vdi_base
+FROM ubuntu:19.10 as vdi_base
 
 ENV DEBIAN_FRONTEND=noninteractive
 
