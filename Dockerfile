@@ -56,18 +56,18 @@ FROM vdi_base as vdi
 
 #######################################
 # ONLINE install
-# Goto https://www.nomachine.com/download/download&id=10 and change for the latest NOMACHINE_PACKAGE_NAME and MD5 shown in that link to get the latest version.
+# Goto https://www.nomachine.com/download/download&id=6 and change for the latest NOMACHINE_PACKAGE_NAME and MD5 shown in that link to get the latest version.
 # Free - OLD
-#ENV NOMACHINE_PACKAGE_NAME nomachine_5.2.11_1_amd64.deb
-#ENV NOMACHINE_MD5 d697e5a565507d522380c94d2f295d0
+#ENV NOMACHINE_PACKAGE_NAME nomachine_6.9.2_1_amd64.deb
+#ENV NOMACHINE_MD5 86fe9a0f9ee06ee6fce41aa36674f727
 
 # Free - lastest
-ENV NOMACHINE_PACKAGE_NAME nomachine_6.5.6_9_amd64.deb
-# ENV NOMACHINE_MD5 8fc4b0a467eff56f662f348c7e03c6ec
+ENV NOMACHINE_PACKAGE_NAME nomachine_6.9.2_1_amd64.deb
+# ENV NOMACHINE_MD5 86fe9a0f9ee06ee6fce41aa36674f727
 
 # Enterprise
-# ENV NOMACHINE_PACKAGE_NAME nomachine-enterprise-desktop-evaluation_6.5.6_10_amd64.deb
-# ENV NOMACHINE_MD5 306a8554a6ffc9aec6f8a2b7e6e61e46
+# ENV NOMACHINE_PACKAGE_NAME nomachine-enterprise-desktop_6.9.2_1_amd64.deb
+# ENV NOMACHINE_MD5 d8eff88f1e2a6ed25f199d8aaf921f2b
 
 # Install nomachine, change password and username to whatever you want here
 #RUN	# curl -fSL "http://download.nomachine.com/download/5.2/Linux/${NOMACHINE_PACKAGE_NAME}" -o nomachine.deb \
@@ -79,10 +79,11 @@ ENV NOMACHINE_PACKAGE_NAME nomachine_6.5.6_9_amd64.deb
 
 #######################################
 # OFFLINE install
-ADD ./install/${NOMACHINE_PACKAGE_NAME} /nomachine.deb
-RUN	dpkg -i /nomachine.deb && \
+ADD ./install/${NOMACHINE_PACKAGE_NAME} /tmp/nomachine.deb
+RUN	dpkg -i /tmp/nomachine.deb && \
     # Cleanup
-    rm -f /nomachine.deb
+    rm -f /tmp/nomachine.deb \
+	apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 
 #######################################
