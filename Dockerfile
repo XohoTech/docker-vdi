@@ -86,15 +86,7 @@ RUN	dpkg -i /nomachine.deb && \
 
 
 #######################################
-# add Configs
-ADD ./configs/server.cfg /usr/NX/etc/server.cfg
-ADD ./configs/node.cfg /usr/NX/etc/node.cfg
-## keyboard-layout
-ADD ./configs/bash_profile /home/user/.bash_profile
-## Desktop config
-ADD ./configs/xfce4 /home/user/.config/xfce4
+# add Configs to rootfs
+ADD ./rootfs/ /
 
-
-ADD nxserver.sh /
-
-ENTRYPOINT ["/nxserver.sh"]
+ENTRYPOINT ["/entrypoint.sh"]
