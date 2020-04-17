@@ -1,4 +1,18 @@
-#!/bin/sh
+#!/bin/bash
+
+
+if [ $VERSION == "enterprise_alt" ]; then
+    # Install noachine
+
+    echo "${NOMACHINE_MD5} /install/*nomachine.deb" | md5sum -c - 
+    dpkg -i /install/nomachine.deb
+
+    # Clean up when done.
+    rm -Rf /install
+    apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+fi
+
+# Configure system
 groupadd -r $USER -g 433 \
 && useradd -u 431 -r -g $USER -d /home/$USER -s /bin/bash -c "$USER" $USER \
 && adduser $USER sudo \
